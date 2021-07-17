@@ -1,3 +1,3 @@
 # LearnIt-project
 
-Practice MERN stack.
+MERN stack.

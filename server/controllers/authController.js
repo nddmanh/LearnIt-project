@@ -2,28 +2,30 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const argon2 = require('argon2');
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
     const { username, password } = req.body
 
 	// Simple validation
-	if (!username || !password)
+	if (!username || !password) {
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing username and/or password' });
+	}
 
 	try {
 		// Check for existing user
 		const user = await User.findOne({ username })
 
-		if (user)
+		if (user) {
 			return res
 				.status(400)
-				.json({ success: false, message: 'Username already taken' })
+				.json({ success: false, message: 'Username already taken' });
+		}
 
 		// All good
-		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword })
-		await newUser.save()
+		const hashedPassword = await argon2.hash(password);
+		const newUser = new User({ username, password: hashedPassword });
+		await newUser.save();
 
 		// Return token
 		const accessToken = jwt.sign(
@@ -37,34 +39,37 @@ exports.register = async (req, res, next) => {
 			accessToken
 		})
 	} catch (error) {
-		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };
 
-exports.login = async (req, res, next) => {
-    const { username, password } = req.body
+exports.login = async (req, res) => {
+    const { username, password } = req.body;
 
 	// Simple validation
-	if (!username || !password)
+	if (!username || !password) {
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing username and/or password' });
+	}
 
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username })
-		if (!user)
+		const user = await User.findOne({ username });
+		if (!user) {
 			return res
 				.status(400)
-				.json({ success: false, message: 'Incorrect username or password' })
+				.json({ success: false, message: 'Incorrect username or password' });
+		}
 
 		// Username found
-		const passwordValid = await argon2.verify(user.password, password)
-		if (!passwordValid)
+		const passwordValid = await argon2.verify(user.password, password);
+		if (!passwordValid) {
 			return res
 				.status(400)
-				.json({ success: false, message: 'Incorrect username or password' })
+				.json({ success: false, message: 'Incorrect username or password' });
+		}
 
 		// All good
 		// Return token
@@ -86,12 +91,12 @@ exports.login = async (req, res, next) => {
 
 exports.getCurrentUser = async (req, res, next) => {
     try {
-		const user = await User.findById(req.userId).select('-password')
+		const user = await User.findById(req.userId).select('-password');
 		if (!user)
-			return res.status(400).json({ success: false, message: 'User not found' })
-		res.json({ success: true, user })
+			return res.status(400).json({ success: false, message: 'User not found' });
+		res.json({ success: true, user });
 	} catch (error) {
-		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };

@@ -14,3 +14,20 @@ Content-Type: application/json
     "username": "nddmanh5",
     "password": "123456"
 }
+
+###
+GET http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGYxYjU4NzZkZGJjNzI2NzQ5YmIwZWIiLCJpYXQiOjE2MjY0NTgyNDZ9.GqEPZVpSpVyP5gTWpRTyxMNpkqmexfWWr6c0KjXaXmM
+
+###
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGYxYjU4NzZkZGJjNzI2NzQ5YmIwZWIiLCJpYXQiOjE2MjY0NTgyNDZ9.GqEPZVpSpVyP5gTWpRTyxMNpkqmexfWWr6c0KjXaXmM
+
+{
+    "title": "React2",
+    "description": "learn Reactjs",
+    "url": "react.com",
+    "status": "LEARNING"
+}
