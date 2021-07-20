@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { authReducer } from '../reducers/authReducer';
-import { apiUrl,LOCAL_STORAGE_TOKEN_NAME } from './constants';
+import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from './constants';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -79,8 +79,17 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
+  // Logout
+  const logoutUser = () => {
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+    dispatch({
+      type: 'SET_AUTH',
+      payload: { isAuthenticated: false, user: null }
+    });
+  }
+
   // Context data
-  const AuthContextData = { loginUser, registerUser, authState };
+  const AuthContextData = { loginUser, registerUser, logoutUser, authState };
 
   // Return provider 
   return (

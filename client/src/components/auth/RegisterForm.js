@@ -83,7 +83,7 @@ const RegisterForm = () => {
       </Form>
       <p> Already have an account?
         <Link to='/login'>
-          <Button variant='info' size='sm' className='ms-2' > Login</Button>
+          <Button variant='info' size='sm' className='ml-2' > Login</Button>
         </Link>
       </p>
     </>

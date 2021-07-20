@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import LoginForm from '../auth/LoginForm';
-import RegisterForm from '../auth/RegisterForm';
+import LoginForm from './../components/auth/LoginForm';
+import RegisterForm from './../components/auth/RegisterForm';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import { AuthContext } from '../../contexts/authContext';
+import { AuthContext } from '../contexts/authContext';
 
 const Auth = ({ authRoute }) => {
   const { authState: {authLoading, isAuthenticated }} = useContext(AuthContext);
@@ -40,4 +40,4 @@ const Auth = ({ authRoute }) => {
   )
 }
 
-export default Auth
+export default Auth;

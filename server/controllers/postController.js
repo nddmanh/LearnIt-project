@@ -1,4 +1,4 @@
-const Post = require('../models/Post')
+const Post = require('../models/Post');
 
 // @route GET api/posts
 // @desc Get posts
@@ -8,10 +8,10 @@ exports.getAllPosts = async (req, res) => {
 		const posts = await Post.find({ user: req.userId }).populate('user', [
 			'username'
 		])
-		res.json({ success: true, posts })
+		res.json({ success: true, posts });
 	} catch (error) {
 		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };
 
@@ -19,13 +19,13 @@ exports.getAllPosts = async (req, res) => {
 // @desc Create post
 // @access Private
 exports.createOnePost = async (req, res) => {
-	const { title, description, url, status } = req.body
+	const { title, description, url, status } = req.body;
 
 	// Simple validation
 	if (!title)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Title is required' })
+			.json({ success: false, message: 'Title is required' });
 
 	try {
 		const newPost = new Post({
@@ -36,12 +36,12 @@ exports.createOnePost = async (req, res) => {
 			user: req.userId
 		})
 
-		await newPost.save()
+		await newPost.save();
 
-		res.json({ success: true, message: 'Happy learning!', post: newPost })
+		res.json({ success: true, message: 'Happy learning!', post: newPost });
 	} catch (error) {
 		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };
 
@@ -55,7 +55,7 @@ exports.updateOnePost =  async (req, res) => {
 	if (!title)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Title is required' })
+			.json({ success: false, message: 'Title is required' });
 
 	try {
 		let updatedPost = {
@@ -65,7 +65,7 @@ exports.updateOnePost =  async (req, res) => {
 			status: status || 'TO LEARN'
 		}
 
-		const postUpdateCondition = { _id: req.params.id, user: req.userId }
+		const postUpdateCondition = { _id: req.params.id, user: req.userId };
 
 		updatedPost = await Post.findOneAndUpdate(
 			postUpdateCondition,
@@ -86,8 +86,8 @@ exports.updateOnePost =  async (req, res) => {
 			post: updatedPost
 		})
 	} catch (error) {
-		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };
 
@@ -96,19 +96,19 @@ exports.updateOnePost =  async (req, res) => {
 // @access Private
 exports.deleteOnePost = async (req, res) => {
 	try {
-		const postDeleteCondition = { _id: req.params.id, user: req.userId }
-		const deletedPost = await Post.findOneAndDelete(postDeleteCondition)
+		const postDeleteCondition = { _id: req.params.id, user: req.userId };
+		const deletedPost = await Post.findOneAndDelete(postDeleteCondition);
 
 		// User not authorised or post not found
 		if (!deletedPost)
 			return res.status(401).json({
 				success: false,
 				message: 'Post not found or user not authorised'
-			})
+			});
 
-		res.json({ success: true, post: deletedPost })
+		res.json({ success: true, post: deletedPost });
 	} catch (error) {
-		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
 	}
 };

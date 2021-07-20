@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const authRouter = require('./routes/authRoute');
 const postRouter = require('./routes/postRoute');
-const {connectDB} = require('./configs/db');
+const { connectDB } = require('./configs/db');
 
 connectDB();
 

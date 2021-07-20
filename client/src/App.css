@@ -114,3 +114,8 @@ button.post-button.btn:active {
 .post-title {
 	margin-bottom: 0.5rem;
 }
+
+#basic-navbar-nav {
+	display: flex;
+	justify-content: space-between;
+}
