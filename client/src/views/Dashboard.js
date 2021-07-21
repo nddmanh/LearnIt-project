@@ -26,7 +26,7 @@ const Dashboard = () => {
     setShowToast
   } = useContext(PostContext);
 
-  useEffect(() => getPosts(), [getPosts]);
+  useEffect(() => getPosts(), []);
 
   let body = null;
 
