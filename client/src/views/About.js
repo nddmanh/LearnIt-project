@@ -12,7 +12,7 @@ const About = () => {
 					target='_blank'
 					size='lg'
 				>
-					Visit my Github
+					<span className='font-weight-bolder text-white mt-1'> Visit my Github </span>
 				</Button>
 			</Col>
 		</Row>
